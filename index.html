@@ -89,13 +89,8 @@
 </head>
 <body>
     <h1>Frozen Delights - Product List</h1>
-    <div class="product">
-        <img src="images/purefoods_hamonado_longganisa_250g_ready_to_eat.jpg" alt="Pure Foods Hamonado Longganisa">
-        <div class="product-name">Pure Foods Hamonado Longganisa 250g</div>
-        <div class="price">₱0</div>
-        <div class="available-qty">Qty Available: <span class="qty">10</span></div>
-        <button class="add-to-cart">Add to Cart</button>
-    </div>
+
+    <div id="products-container"></div>
 
     <div id="cart">
         <h3>Shopping Cart</h3>
@@ -104,32 +99,62 @@
     </div>
 
     <script>
-        const products = document.querySelectorAll('.product');
+        const productData = [
+            { name: 'Purefoods Hamonado Longganisa 250g', image: 'images/purefoods_hamonado_longganisa_250g_ready_to_eat.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Chicken Longganisa 250g', image: 'images/purefoods_chicken_longganisa_250g_ready_to_eat.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Chicken Breast Nuggets 135g', image: 'images/purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg', price: '₱0', qty: 10 },
+            { name: 'San Miguel Foods Vida Meaty Roll 250g', image: 'images/sanmiguelfoods_vida_meaty_roll_250g.jpg', price: '₱0', qty: 10 },
+            { name: 'San Miguel Foods Magnolia Chicken Longganisa 250g', image: 'images/sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg', price: '₱0', qty: 10 },
+            { name: 'San Miguel Foods Magnolia Classic Burgers 200g', image: 'images/sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Letters & Numbers Nuggets 200g', image: 'images/purefoods_letters_numbers_nuggets_200g.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Star Cheesedog Footlong 1.1kg', image: 'images/purefoods_star_cheesedog_footlong_1_1kg.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Cheesedog Tender Juicy Hotdog 1kg', image: 'images/purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Jumbo Tender Juicy Hotdog 1kg', image: 'images/purefoods_jumbo_tender_juicy_hotdog_1kg.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Chicken Cheese Tender Juicy Hotdog 1kg', image: 'images/purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Vida Bacon 250g', image: 'images/purefoods_vida_bacon_250g.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Beef Tapa 450g', image: 'images/purefoods_beef_tapa_450g.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Chicken Drummets Crisp n Juicy 240g', image: 'images/purefoods_chicken_drummets_crisp_n_juicy_240g.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Chicken Breast Nuggets Crisp n Juicy 200g', image: 'images/purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg', price: '₱0', qty: 10 },
+            { name: 'Purefoods Crazy Cut Nuggets 135g', image: 'images/purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg', price: '₱0', qty: 10 }
+        ];
+
+        const productsContainer = document.getElementById('products-container');
         const cartItems = document.getElementById('cart-items');
         const checkoutButton = document.getElementById('checkout');
         let cart = [];
 
-        products.forEach(product => {
-            const addButton = product.querySelector('.add-to-cart');
-            const qtySpan = product.querySelector('.qty');
-            addButton.addEventListener('click', () => {
-                let availableQty = parseInt(qtySpan.textContent);
-                if (availableQty > 0) {
-                    qtySpan.textContent = availableQty - 1;
-                    const name = product.querySelector('.product-name').textContent;
-                    const price = product.querySelector('.price').textContent;
-                    const cartItem = cart.find(item => item.name === name);
-                    if (cartItem) {
-                        cartItem.qty += 1;
+        function renderProducts() {
+            productData.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'product';
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="product-name">${product.name}</div>
+                    <div class="price">${product.price}</div>
+                    <div class="available-qty">Qty Available: <span class="qty">${product.qty}</span></div>
+                    <button class="add-to-cart">Add to Cart</button>
+                `;
+                productsContainer.appendChild(div);
+
+                const addButton = div.querySelector('.add-to-cart');
+                const qtySpan = div.querySelector('.qty');
+                addButton.addEventListener('click', () => {
+                    let availableQty = parseInt(qtySpan.textContent);
+                    if (availableQty > 0) {
+                        qtySpan.textContent = availableQty - 1;
+                        const cartItem = cart.find(item => item.name === product.name);
+                        if (cartItem) {
+                            cartItem.qty += 1;
+                        } else {
+                            cart.push({ name: product.name, price: product.price, qty: 1 });
+                        }
+                        renderCart();
                     } else {
-                        cart.push({ name, price, qty: 1 });
+                        alert('Out of stock!');
                     }
-                    renderCart();
-                } else {
-                    alert('Out of stock!');
-                }
+                });
             });
-        });
+        }
 
         function renderCart() {
             cartItems.innerHTML = '';
@@ -151,6 +176,8 @@
                 alert(summary);
             }
         });
+
+        renderProducts();
     </script>
 </body>
 </html>
