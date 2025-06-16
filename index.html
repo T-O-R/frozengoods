@@ -3,120 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frozen Goods Product List</title>
+    <title>Frozen Goods Store</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header img {
+            height: 40px;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        h1 {
+            text-align: center;
             padding: 20px;
-            background-color: #f9f9f9;
+        }
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
         }
         .product {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            margin: 10px;
-            background-color: #fff;
-            width: 300px;
-            display: inline-block;
-            vertical-align: top;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
         }
         .product img {
             width: 100%;
-            border-radius: 8px;
+            height: 200px;
+            object-fit: cover;
         }
         .product-name {
+            padding: 10px;
             font-weight: bold;
-            margin-top: 10px;
-            font-size: 16px;
+            font-size: 1em;
         }
         .price {
-            color: green;
-            margin-top: 5px;
+            padding: 0 10px 10px;
+            color: #27ae60;
+            font-size: 1em;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+            }
+            nav {
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <img src="images/logo.png" alt="Frozen Goods Logo">
+        <nav>
+            <a href="#">Home</a>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
     <h1>Frozen Goods Product List</h1>
-    <div class="product">
-        <img src="images/purefoods_hamonado_longganisa_250g_ready_to_eat.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Hamonado Longganisa 250g (ready-to-eat)</div>
-        <div class="price">₱0</div>
+    <div id="products" class="product-container">
+        <div class="product">
+            <img src="images/purefoods_hamonado_longganisa_250g_ready_to_eat.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Hamonado Longganisa 250g (ready-to-eat)</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_chicken_longganisa_250g_ready_to_eat.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Chicken Longganisa 250g (ready-to-eat)</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Chicken Breast Nuggets (Sulit Pack) 135g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/sanmiguelfoods_vida_meaty_roll_250g.jpg" alt="Product Image">
+            <div class="product-name">San Miguel Foods Vida Meaty Roll 250g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg" alt="Product Image">
+            <div class="product-name">San Miguel Foods - Magnolia Timplados Chicken Longganisa 250g (ready-to-cook)</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg" alt="Product Image">
+            <div class="product-name">San Miguel Foods - Magnolia Timplados Classic Burgers 200g (ready-to-cook)</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_letters_numbers_nuggets_200g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Letters & Numbers Nuggets 200g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_star_cheesedog_footlong_1_1kg.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods - Star Cheesedog Footlong 1.1Kg</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Cheesedog Tender Juicy Hotdog 1Kg</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_jumbo_tender_juicy_hotdog_1kg.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Jumbo Tender Juicy Hotdog 1Kg</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Chicken & Cheese Tender Juicy Hotdog 1Kg</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_vida_bacon_250g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Vida Bacon 250g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_beef_tapa_450g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Beef Tapa 450g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_chicken_drummets_crisp_n_juicy_240g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Chicken Drummets (Crisp n Juicy) 240g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Chicken Breast Nuggets (Crisp n Juicy) 200g</div>
+            <div class="price">₱0</div>
+        </div>
+        <div class="product">
+            <img src="images/purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg" alt="Product Image">
+            <div class="product-name">Pure Foods Crazy Cut Nuggets (Sulit Pack) 135g</div>
+            <div class="price">₱0</div>
+        </div>
     </div>
-    <div class="product">
-        <img src="images/purefoods_chicken_longganisa_250g_ready_to_eat.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Chicken Longganisa 250g (ready-to-eat)</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Chicken Breast Nuggets (Sulit Pack) 135g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/sanmiguelfoods_vida_meaty_roll_250g.jpg" alt="Product Image">
-        <div class="product-name">San Miguel Foods Vida Meaty Roll 250g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg" alt="Product Image">
-        <div class="product-name">San Miguel Foods - Magnolia Timplados Chicken Longganisa 250g (ready-to-cook)</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg" alt="Product Image">
-        <div class="product-name">San Miguel Foods - Magnolia Timplados Classic Burgers 200g (ready-to-cook)</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_letters_numbers_nuggets_200g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Letters & Numbers Nuggets 200g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_star_cheesedog_footlong_1_1kg.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods - Star Cheesedog Footlong 1.1Kg</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Cheesedog Tender Juicy Hotdog 1Kg</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_jumbo_tender_juicy_hotdog_1kg.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Jumbo Tender Juicy Hotdog 1Kg</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Chicken & Cheese Tender Juicy Hotdog 1Kg</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_vida_bacon_250g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Vida Bacon 250g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_beef_tapa_450g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Beef Tapa 450g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_chicken_drummets_crisp_n_juicy_240g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Chicken Drummets (Crisp n Juicy) 240g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Chicken Breast Nuggets (Crisp n Juicy) 200g</div>
-        <div class="price">₱0</div>
-    </div>
-    <div class="product">
-        <img src="images/purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg" alt="Product Image">
-        <div class="product-name">Pure Foods Crazy Cut Nuggets (Sulit Pack) 135g</div>
-        <div class="price">₱0</div>
-    </div>
+
+    <footer>
+        &copy; 2025 Frozen Goods Store. All rights reserved.
+    </footer>
 </body>
 </html>
