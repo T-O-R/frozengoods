@@ -1,130 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frozen Delights Mini Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F4F4F4;
-            margin: 0;
-            padding: 0 15%;
-        }
-        header {
-            background-color: #D4A017;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .cart {
-            text-align: right;
-            padding: 10px 0;
-            color: #333;
-            font-size: 16px;
-        }
-        .product {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 15px;
-            margin: 20px 10px;
-            display: inline-block;
-            width: 250px;
-            vertical-align: top;
-            text-align: center;
-        }
-        .product img {
-            width: 100%;
-            border-radius: 8px;
-        }
-        .product-name {
-            font-weight: bold;
-            margin: 10px 0;
-            color: #333;
-        }
-        .price {
-            color: #D4A017;
-            font-size: 18px;
-            margin: 5px 0;
-        }
-        .quantity {
-            color: #555;
-            font-size: 14px;
-            margin: 5px 0;
-        }
-        button {
-            background-color: #D4A017;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #E1B12C;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 14px;
-            color: #666;
-            margin-top: 40px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frozen Delights</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #f2d30a;
+      padding: 15px 0;
+      text-align: center;
+      color: #000;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    nav {
+      text-align: center;
+      margin: 15px 0;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 15%;
+    }
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px;
+      background-color: #fff;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .product-name {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .price {
+      color: green;
+      margin: 5px 0;
+    }
+    .quantity {
+      margin: 5px 0;
+    }
+    button {
+      background-color: #f2d30a;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    #cart {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: #f2d30a;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
-    <header>Frozen Delights</header>
-    <div class="cart">🛒 Cart (<span id="cart-count">0</span>)</div>
+  <header>Frozen Delights</header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Contact</a>
+  </nav>
 
-    <div id="product-container"></div>
+  <div id="cart">🛒 Cart: <span id="cart-count">0</span></div>
 
-    <footer>© 2025 Frozen Delights. All rights reserved.</footer>
+  <div class="container" id="product-list">
+    <!-- Products will be injected here by JS -->
+  </div>
 
-    <script>
-        const products = [
-            {name: "Purefoods Hamonado Longganisa 250g", price: 120, qty: 10, img: "purefoods_hamonado_longganisa_250g_ready_to_eat.jpg"},
-            {name: "Purefoods Chicken Longganisa 250g", price: 115, qty: 8, img: "purefoods_chicken_longganisa_250g_ready_to_eat.jpg"},
-            {name: "Purefoods Chicken Breast Nuggets 135g", price: 95, qty: 12, img: "purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg"},
-            {name: "San Miguel Vida Meaty Roll 250g", price: 105, qty: 15, img: "sanmiguelfoods_vida_meaty_roll_250g.jpg"},
-            {name: "SM Magnolia Timplados Chicken Longganisa 250g", price: 110, qty: 9, img: "sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg"},
-            {name: "SM Magnolia Timplados Classic Burgers 200g", price: 130, qty: 6, img: "sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg"},
-            {name: "Purefoods Letters & Numbers Nuggets 200g", price: 100, qty: 11, img: "purefoods_letters_numbers_nuggets_200g.jpg"},
-            {name: "Purefoods Star Cheesedog Footlong 1.1kg", price: 300, qty: 4, img: "purefoods_star_cheesedog_footlong_1_1kg.jpg"},
-            {name: "Purefoods Cheesedog Tender Juicy Hotdog 1kg", price: 280, qty: 7, img: "purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg"},
-            {name: "Purefoods Jumbo Tender Juicy Hotdog 1kg", price: 290, qty: 5, img: "purefoods_jumbo_tender_juicy_hotdog_1kg.jpg"},
-            {name: "Purefoods Chicken & Cheese Hotdog 1kg", price: 285, qty: 6, img: "purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg"},
-            {name: "Purefoods Vida Bacon 250g", price: 150, qty: 10, img: "purefoods_vida_bacon_250g.jpg"},
-            {name: "Purefoods Beef Tapa 450g", price: 190, qty: 8, img: "purefoods_beef_tapa_450g.jpg"},
-            {name: "Purefoods Chicken Drummets 240g", price: 120, qty: 12, img: "purefoods_chicken_drummets_crisp_n_juicy_240g.jpg"},
-            {name: "Purefoods Chicken Breast Nuggets 200g", price: 130, qty: 11, img: "purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg"},
-            {name: "Purefoods Crazy Cut Nuggets 135g", price: 90, qty: 14, img: "purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg"}
-        ];
+  <script>
+    const products = [
+      { name: 'Purefoods Hamonado Longganisa 250g', price: 120, qty: 5, img: 'images/purefoods_hamonado_longganisa_250g_ready_to_eat.jpg' },
+      { name: 'Purefoods Chicken Longganisa 250g', price: 115, qty: 4, img: 'images/purefoods_chicken_longganisa_250g_ready_to_eat.jpg' },
+      { name: 'Purefoods Chicken Breast Nuggets 135g', price: 80, qty: 10, img: 'images/purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg' },
+      { name: 'San Miguel Vida Meaty Roll 250g', price: 95, qty: 7, img: 'images/sanmiguelfoods_vida_meaty_roll_250g.jpg' },
+      { name: 'Magnolia Chicken Longganisa 250g', price: 130, qty: 6, img: 'images/sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg' },
+      { name: 'Magnolia Classic Burgers 200g', price: 125, qty: 5, img: 'images/sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg' },
+      { name: 'Purefoods Letters Nuggets 200g', price: 90, qty: 8, img: 'images/purefoods_letters_numbers_nuggets_200g.jpg' },
+      { name: 'Star Cheesedog Footlong 1.1kg', price: 250, qty: 3, img: 'images/purefoods_star_cheesedog_footlong_1_1kg.jpg' },
+      { name: 'Cheesedog Tender Juicy 1kg', price: 240, qty: 4, img: 'images/purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg' },
+      { name: 'Jumbo Tender Juicy 1kg', price: 255, qty: 6, img: 'images/purefoods_jumbo_tender_juicy_hotdog_1kg.jpg' },
+      { name: 'Chicken Cheese Tender Juicy 1kg', price: 260, qty: 5, img: 'images/purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg' },
+      { name: 'Vida Bacon 250g', price: 180, qty: 9, img: 'images/purefoods_vida_bacon_250g.jpg' },
+      { name: 'Beef Tapa 450g', price: 220, qty: 4, img: 'images/purefoods_beef_tapa_450g.jpg' },
+      { name: 'Chicken Drummets 240g', price: 110, qty: 7, img: 'images/purefoods_chicken_drummets_crisp_n_juicy_240g.jpg' },
+      { name: 'Chicken Breast Nuggets 200g', price: 120, qty: 6, img: 'images/purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg' },
+      { name: 'Crazy Cut Nuggets 135g', price: 85, qty: 8, img: 'images/purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg' },
+    ];
 
-        let cartCount = 0;
+    let cartCount = 0;
+    const cart = {};
 
-        const container = document.getElementById('product-container');
+    function updateCart() {
+      cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+      document.getElementById('cart-count').textContent = cartCount;
+    }
 
-        products.forEach(prod => {
-            const div = document.createElement('div');
-            div.className = 'product';
-            div.innerHTML = `
-                <img src="images/${prod.img}" alt="${prod.name}">
-                <div class="product-name">${prod.name}</div>
-                <div class="price">₱${prod.price}</div>
-                <div class="quantity">Qty Available: ${prod.qty}</div>
-                <button onclick="addToCart()">Add to Cart</button>
-            `;
-            container.appendChild(div);
-        });
+    function renderProducts() {
+      const container = document.getElementById('product-list');
+      products.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <div class="product-name">${p.name}</div>
+          <div class="price">₱${p.price}</div>
+          <div class="quantity">Available: <span id="stock-${i}">${p.qty}</span></div>
+          <button onclick="addToCart(${i})">Add to Cart</button>
+        `;
+        container.appendChild(div);
+      });
+    }
 
-        function addToCart() {
-            cartCount++;
-            document.getElementById('cart-count').textContent = cartCount;
-        }
-    </script>
+    function addToCart(index) {
+      if (!cart[index]) cart[index] = 0;
+      if (cart[index] < products[index].qty) {
+        cart[index]++;
+        updateCart();
+        document.getElementById(`stock-${index}`).textContent = products[index].qty - cart[index];
+      } else {
+        alert('Stock limit reached!');
+      }
+    }
+
+    renderProducts();
+  </script>
 </body>
 </html>
