@@ -3,32 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frozen Goods Mini Store</title>
+    <title>Frozen Delights Mini Store</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fdf6e3;
-            color: #333;
-            padding: 20px 15%;
-            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 0 15%;
         }
         header {
+            background-color: #D4A017;
+            color: white;
+            padding: 20px 0;
             text-align: center;
-            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
         }
-        header h1 {
-            color: #a67c00;
+        .cart {
+            text-align: right;
+            padding: 10px 0;
+            color: #333;
+            font-size: 16px;
         }
         .product {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background: #fff8dc;
-            padding: 10px;
-            margin: 10px;
-            width: 250px;
-            display: inline-block;
-            vertical-align: top;
+            background: white;
+            border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin: 20px 10px;
+            display: inline-block;
+            width: 250px;
+            vertical-align: top;
+            text-align: center;
         }
         .product img {
             width: 100%;
@@ -36,112 +42,88 @@
         }
         .product-name {
             font-weight: bold;
-            font-size: 14px;
-            margin: 10px 0 5px 0;
+            margin: 10px 0;
+            color: #333;
         }
         .price {
-            color: green;
-            font-weight: bold;
+            color: #D4A017;
+            font-size: 18px;
+            margin: 5px 0;
         }
         .quantity {
+            color: #555;
+            font-size: 14px;
             margin: 5px 0;
         }
         button {
-            background-color: #a67c00;
-            color: #fff;
+            background-color: #D4A017;
+            color: white;
             border: none;
-            padding: 5px 10px;
-            cursor: pointer;
+            padding: 8px 12px;
             border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        #cart {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #fff8dc;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 10px;
-            width: 200px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        button:hover {
+            background-color: #E1B12C;
         }
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .product {
-                width: 45%;
-            }
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #666;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Frozen Goods Mini Store</h1>
-    </header>
+    <header>Frozen Delights</header>
+    <div class="cart">🛒 Cart (<span id="cart-count">0</span>)</div>
 
-    <div id="products"></div>
+    <div id="product-container"></div>
 
-    <div id="cart">
-        <h3>Shopping Cart</h3>
-        <ul id="cart-items"></ul>
-    </div>
+    <footer>© 2025 Frozen Delights. All rights reserved.</footer>
 
     <script>
         const products = [
-            {name: "Purefoods Hamonado Longganisa 250g", img: "images/purefoods_hamonado_longganisa_250g_ready_to_eat.jpg", price: 120, qty: 10},
-            {name: "Purefoods Chicken Longganisa 250g", img: "images/purefoods_chicken_longganisa_250g_ready_to_eat.jpg", price: 115, qty: 8},
-            {name: "Purefoods Chicken Breast Nuggets 135g", img: "images/purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg", price: 90, qty: 12},
-            {name: "San Miguel Vida Meaty Roll 250g", img: "images/sanmiguelfoods_vida_meaty_roll_250g.jpg", price: 110, qty: 7},
-            {name: "Magnolia Timplados Chicken Longganisa 250g", img: "images/sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg", price: 125, qty: 9},
-            {name: "Magnolia Classic Burgers 200g", img: "images/sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg", price: 130, qty: 6},
-            {name: "Letters & Numbers Nuggets 200g", img: "images/purefoods_letters_numbers_nuggets_200g.jpg", price: 95, qty: 14},
-            {name: "Star Cheesedog Footlong 1.1kg", img: "images/purefoods_star_cheesedog_footlong_1_1kg.jpg", price: 300, qty: 5},
-            {name: "Cheesedog Tender Juicy Hotdog 1kg", img: "images/purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg", price: 280, qty: 4},
-            {name: "Jumbo Tender Juicy Hotdog 1kg", img: "images/purefoods_jumbo_tender_juicy_hotdog_1kg.jpg", price: 290, qty: 6},
-            {name: "Chicken Cheese Tender Juicy 1kg", img: "images/purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg", price: 285, qty: 5},
-            {name: "Vida Bacon 250g", img: "images/purefoods_vida_bacon_250g.jpg", price: 160, qty: 9},
-            {name: "Beef Tapa 450g", img: "images/purefoods_beef_tapa_450g.jpg", price: 200, qty: 7},
-            {name: "Chicken Drummets 240g", img: "images/purefoods_chicken_drummets_crisp_n_juicy_240g.jpg", price: 140, qty: 11},
-            {name: "Chicken Breast Nuggets 200g", img: "images/purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg", price: 150, qty: 10},
-            {name: "Crazy Cut Nuggets 135g", img: "images/purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg", price: 95, qty: 15}
+            {name: "Purefoods Hamonado Longganisa 250g", price: 120, qty: 10, img: "purefoods_hamonado_longganisa_250g_ready_to_eat.jpg"},
+            {name: "Purefoods Chicken Longganisa 250g", price: 115, qty: 8, img: "purefoods_chicken_longganisa_250g_ready_to_eat.jpg"},
+            {name: "Purefoods Chicken Breast Nuggets 135g", price: 95, qty: 12, img: "purefoods_chicken_breast_nuggets_sulit_pack_135g.jpg"},
+            {name: "San Miguel Vida Meaty Roll 250g", price: 105, qty: 15, img: "sanmiguelfoods_vida_meaty_roll_250g.jpg"},
+            {name: "SM Magnolia Timplados Chicken Longganisa 250g", price: 110, qty: 9, img: "sanmiguelfoods_magnolia_timplados_chicken_longganisa_250g_ready_to_cook.jpg"},
+            {name: "SM Magnolia Timplados Classic Burgers 200g", price: 130, qty: 6, img: "sanmiguelfoods_magnolia_timplados_classic_burgers_200g_ready_to_cook.jpg"},
+            {name: "Purefoods Letters & Numbers Nuggets 200g", price: 100, qty: 11, img: "purefoods_letters_numbers_nuggets_200g.jpg"},
+            {name: "Purefoods Star Cheesedog Footlong 1.1kg", price: 300, qty: 4, img: "purefoods_star_cheesedog_footlong_1_1kg.jpg"},
+            {name: "Purefoods Cheesedog Tender Juicy Hotdog 1kg", price: 280, qty: 7, img: "purefoods_cheesedog_tender_juicy_hotdog_1kg.jpg"},
+            {name: "Purefoods Jumbo Tender Juicy Hotdog 1kg", price: 290, qty: 5, img: "purefoods_jumbo_tender_juicy_hotdog_1kg.jpg"},
+            {name: "Purefoods Chicken & Cheese Hotdog 1kg", price: 285, qty: 6, img: "purefoods_chicken_cheese_tender_juicy_hotdog_1kg.jpg"},
+            {name: "Purefoods Vida Bacon 250g", price: 150, qty: 10, img: "purefoods_vida_bacon_250g.jpg"},
+            {name: "Purefoods Beef Tapa 450g", price: 190, qty: 8, img: "purefoods_beef_tapa_450g.jpg"},
+            {name: "Purefoods Chicken Drummets 240g", price: 120, qty: 12, img: "purefoods_chicken_drummets_crisp_n_juicy_240g.jpg"},
+            {name: "Purefoods Chicken Breast Nuggets 200g", price: 130, qty: 11, img: "purefoods_chicken_breast_nuggets_crisp_n_juicy_200g.jpg"},
+            {name: "Purefoods Crazy Cut Nuggets 135g", price: 90, qty: 14, img: "purefoods_crazy_cut_nuggets_sulit_pack_135g.jpg"}
         ];
 
-        const productContainer = document.getElementById('products');
-        const cartItems = document.getElementById('cart-items');
+        let cartCount = 0;
 
-        products.forEach((p, index) => {
-            let div = document.createElement('div');
+        const container = document.getElementById('product-container');
+
+        products.forEach(prod => {
+            const div = document.createElement('div');
             div.className = 'product';
             div.innerHTML = `
-                <img src="${p.img}" alt="${p.name}">
-                <div class="product-name">${p.name}</div>
-                <div class="price">₱${p.price}</div>
-                <div class="quantity">Available: ${p.qty}</div>
-                <button onclick="addToCart(${index})">Add to Cart</button>
+                <img src="images/${prod.img}" alt="${prod.name}">
+                <div class="product-name">${prod.name}</div>
+                <div class="price">₱${prod.price}</div>
+                <div class="quantity">Qty Available: ${prod.qty}</div>
+                <button onclick="addToCart()">Add to Cart</button>
             `;
-            productContainer.appendChild(div);
+            container.appendChild(div);
         });
 
-        let cart = [];
-        function addToCart(index) {
-            if (products[index].qty > 0) {
-                cart.push(products[index].name);
-                products[index].qty--;
-                updateCart();
-                document.querySelectorAll('.quantity')[index].innerText = 'Available: ' + products[index].qty;
-            } else {
-                alert('Out of Stock!');
-            }
-        }
-
-        function updateCart() {
-            cartItems.innerHTML = '';
-            cart.forEach(item => {
-                let li = document.createElement('li');
-                li.textContent = item;
-                cartItems.appendChild(li);
-            });
+        function addToCart() {
+            cartCount++;
+            document.getElementById('cart-count').textContent = cartCount;
         }
     </script>
 </body>
